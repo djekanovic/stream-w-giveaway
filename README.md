@@ -1,5 +1,5 @@
 <div align="center">
-<p><img src="stream-w-giveaway/stream-w-logo.png" alt="Stream W logo" width="140" /></p>
+<p><img src="./stream-w-logo.png" alt="Stream W logo" width="140" /></p>
 
 # 🎁 Stream W
 
