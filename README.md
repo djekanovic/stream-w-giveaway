@@ -9,11 +9,11 @@
 
 [![Version](https://img.shields.io/badge/version-1.3.0-brightgreen.svg)](https://github.com/yourusername/stream-w)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
-[![Chrome](https://img.shields.io/badge/Chrome-Extension-orange.svg)](https://chrome.google.com/webstore)
+[![Chrome](https://img.shields.io/badge/Chrome-Extension-orange.svg)](https://chromewebstore.google.com/detail/stream-w-open-source-stre/fdgnplakigdlnhpompdbdfopppaplhbn?authuser=0&hl=en)
 
 Run fair and transparent giveaways on **Kick**, **Twitch**, and **YouTube** with 100% accuracy.
 
-[📥 Download](#installation) • [📖 Documentation](#how-to-use) • [💬 Support](https://ko-fi.com/djekanovic)
+[📥 Install](https://chromewebstore.google.com/detail/stream-w-open-source-stre/fdgnplakigdlnhpompdbdfopppaplhbn?authuser=0&hl=en) • [📖 Documentation](#-how-to-use)
 
 ---
 
@@ -42,10 +42,14 @@ Stream W is designed for streamers who want to run **completely fair** giveaways
 
 ## 📥 Installation
 
-### Option 1: Chrome Web Store (Coming Soon)
+### Option 1: Chrome Web Store
 **Easiest method** - One-click install directly from the Chrome Web Store.
 
-> 🔜 Chrome Web Store listing pending approval
+<div align="center">
+
+[![Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png)](https://chromewebstore.google.com/detail/stream-w-open-source-stre/fdgnplakigdlnhpompdbdfopppaplhbn?authuser=0&hl=en)
+
+</div>
 
 ### Option 2: Manual Installation (Available Now)
 
@@ -335,7 +339,7 @@ Other ways to support:
 **Created by:** djekanovic
 
 **Links:**
-- 🌐 [Website/Portfolio](https://cv.djekanovic.com/) *(if applicable)*
+- 🌐 [Website/Portfolio](https://cv.djekanovic.com/)
 - 📷 [Instagram](https://instagram.com/djekanovic)
 
 ---
@@ -362,7 +366,7 @@ Please open an issue or pull request on GitHub.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/stream-w.git
+git clone https://github.com/djekanovic/stream-w-giveaway.git
 
 # Navigate to extension folder
 cd stream-w/stream-w-giveaway
