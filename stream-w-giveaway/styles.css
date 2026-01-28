@@ -1,0 +1,720 @@
+/* Giveaway Bot Panel Styles */
+#giveaway-bot-panel {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  width: 340px;
+  min-height: 400px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  z-index: 2147483647 !important;
+  overflow: hidden;
+  display: none;
+  isolation: isolate;
+}
+
+#giveaway-bot-panel.visible {
+  display: block !important;
+}
+
+#giveaway-bot-panel * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header - Draggable */
+#giveaway-bot-panel .gb-header {
+  background: linear-gradient(90deg, rgba(0, 255, 136, 0.1), rgba(0, 204, 255, 0.1));
+  padding: 12px 16px;
+  cursor: move;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#giveaway-bot-panel .gb-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#giveaway-bot-panel .gb-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#giveaway-bot-panel .gb-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+#giveaway-bot-panel .gb-header h1 {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00ff88, #00ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+#giveaway-bot-panel .gb-subtitle {
+  font-size: 9px;
+  color: white;
+  font-weight: 400;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+#giveaway-bot-panel .gb-logo {
+  max-width: 50px;
+  height: auto;
+  display: inline-block;
+}
+
+/* Language Switcher */
+#giveaway-bot-panel .gb-lang-switcher {
+  display: flex;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px;
+  border-radius: 6px;
+}
+
+#giveaway-bot-panel .gb-lang-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+  opacity: 0.5;
+  padding: 0;
+  line-height: 1;
+  color: inherit;
+  filter: grayscale(50%);
+}
+
+#giveaway-bot-panel .gb-lang-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+#giveaway-bot-panel .gb-lang-btn.active {
+  background: rgba(0, 255, 136, 0.2);
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+#giveaway-bot-panel .gb-close-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 28px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  line-height: 0.8;
+  padding: 0;
+  margin: 0;
+}
+
+#giveaway-bot-panel .gb-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Content */
+#giveaway-bot-panel .gb-content {
+  padding: 16px;
+}
+
+#giveaway-bot-panel .gb-instructions {
+  text-align: center;
+  font-size: 11px;
+  color: #bbb;
+  margin-bottom: 12px;
+}
+
+/* Input Groups */
+#giveaway-bot-panel .gb-input-group {
+  margin-bottom: 10px;
+}
+
+#giveaway-bot-panel .gb-input-group label {
+  display: block;
+  font-size: 11px;
+  color: #bbb;
+  margin-bottom: 4px;
+}
+
+#giveaway-bot-panel .gb-input-group input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid rgba(0, 255, 136, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+#giveaway-bot-panel .gb-input-group input:focus {
+  outline: none;
+  border-color: #00ff88;
+  box-shadow: 0 0 0 1px rgba(0, 255, 136, 0.1);
+}
+
+#giveaway-bot-panel .gb-input-group input::placeholder {
+  color: #888;
+}
+
+#giveaway-bot-panel .gb-input-group input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Debug Toggle */
+#giveaway-bot-panel .gb-toggle-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+#giveaway-bot-panel .gb-toggle-label {
+  font-size: 12px;
+  color: #ff6b6b;
+}
+
+#giveaway-bot-panel .gb-toggle-hint {
+  font-size: 10px;
+  color: #aaa;
+}
+
+#giveaway-bot-panel .gb-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+
+#giveaway-bot-panel .gb-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#giveaway-bot-panel .gb-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #333;
+  border-radius: 24px;
+  transition: 0.3s;
+}
+
+#giveaway-bot-panel .gb-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+#giveaway-bot-panel .gb-toggle input:checked + .gb-toggle-slider {
+  background-color: #ff6b6b;
+}
+
+#giveaway-bot-panel .gb-toggle input:checked + .gb-toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Stats Container */
+#giveaway-bot-panel .gb-stats {
+  text-align: center;
+  padding: 16px;
+  margin: 12px 0;
+  background: rgba(0, 255, 136, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+#giveaway-bot-panel .gb-count {
+  font-size: 48px;
+  font-weight: 700;
+  color: #00ff88;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+#giveaway-bot-panel .gb-stats-label {
+  font-size: 12px;
+  color: #bbb;
+  margin-top: 4px;
+}
+
+#giveaway-bot-panel .gb-timer {
+  font-size: 14px;
+  color: #00ccff;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+#giveaway-bot-panel .gb-timer.warning {
+  color: #ff6b6b;
+  animation: gb-pulse 0.5s infinite;
+}
+
+@keyframes gb-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Participants List */
+#giveaway-bot-panel .gb-participants {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 12px;
+  min-height: 60px;
+  max-height: 300px;
+  height: 100px;
+  overflow-y: auto;
+  resize: vertical;
+}
+
+#giveaway-bot-panel .gb-participants::-webkit-scrollbar {
+  width: 4px;
+}
+
+#giveaway-bot-panel .gb-participants::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#giveaway-bot-panel .gb-participants::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 2px;
+}
+
+#giveaway-bot-panel .gb-list-header {
+  font-size: 10px;
+  color: #999;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#giveaway-bot-panel .gb-participants ul {
+  list-style: none;
+}
+
+#giveaway-bot-panel .gb-participants li {
+  font-size: 12px;
+  padding: 4px 8px;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#giveaway-bot-panel .gb-participants .num {
+  color: #999;
+  min-width: 30px;
+}
+
+#giveaway-bot-panel .gb-participants .user {
+  color: #00ccff;
+}
+
+/* Winner Display */
+#giveaway-bot-panel .gb-winner {
+  display: none;
+  text-align: center;
+  padding: 16px;
+  margin: 12px 0;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));
+  border-radius: 12px;
+  border: 2px solid #ffd700;
+  animation: gb-winner-glow 1s infinite alternate;
+}
+
+@keyframes gb-winner-glow {
+  from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+  to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+}
+
+#giveaway-bot-panel .gb-winner.show {
+  display: block;
+}
+
+#giveaway-bot-panel .gb-winner-label {
+  font-size: 14px;
+  color: #ffd700;
+  margin-bottom: 8px;
+}
+
+#giveaway-bot-panel .gb-winner-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+#giveaway-bot-panel .gb-winner-prize {
+  font-size: 16px;
+  color: #00ff88;
+  margin-top: 8px;
+}
+
+/* Buttons */
+#giveaway-bot-panel .gb-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+#giveaway-bot-panel .gb-btn:first-of-type {
+  margin-top: 0;
+}
+
+#giveaway-bot-panel .gb-btn-icon {
+  font-size: 14px;
+}
+
+#giveaway-bot-panel .gb-btn-start {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: #000;
+}
+
+#giveaway-bot-panel .gb-btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 255, 136, 0.4);
+}
+
+#giveaway-bot-panel .gb-btn-stop {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+  color: #fff;
+}
+
+#giveaway-bot-panel .gb-btn-stop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+#giveaway-bot-panel .gb-btn-reset {
+  background: linear-gradient(135deg, #6c5ce7, #5a4bd1);
+  color: #fff;
+}
+
+#giveaway-bot-panel .gb-btn-reset:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+}
+
+#giveaway-bot-panel .gb-btn-logs {
+  background: linear-gradient(135deg, #00ccff, #0099cc);
+  color: #fff;
+}
+
+#giveaway-bot-panel .gb-btn-logs:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 204, 255, 0.4);
+}
+
+#giveaway-bot-panel .gb-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+#giveaway-bot-panel .gb-btn.hidden {
+  display: none !important;
+}
+
+/* Status */
+#giveaway-bot-panel .gb-status {
+  text-align: center;
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 10px;
+  min-height: 16px;
+}
+
+#giveaway-bot-panel .gb-status.error {
+  color: #ff6b6b;
+}
+
+#giveaway-bot-panel .gb-status.success {
+  color: #00ff88;
+}
+
+/* Confetti Canvas */
+#giveaway-confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2147483646;
+}
+
+/* Processing Overlay */
+#giveaway-bot-panel .gb-processing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  z-index: 10;
+}
+
+#giveaway-bot-panel .gb-processing.show {
+  display: flex;
+}
+
+#giveaway-bot-panel .gb-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #333;
+  border-top-color: #00ff88;
+  border-radius: 50%;
+  animation: gb-spin 1s linear infinite;
+}
+
+@keyframes gb-spin {
+  to { transform: rotate(360deg); }
+}
+
+#giveaway-bot-panel .gb-processing-text {
+  color: #00ccff;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+/* Footer */
+#giveaway-bot-panel .gb-footer {
+  text-align: center;
+  font-size: 10px;
+  color: #888;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#giveaway-bot-panel .gb-footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+#giveaway-bot-panel .gb-footer a:hover {
+  color: #00ff88;
+}
+
+/* Logs Modal */
+#giveaway-bot-panel .gb-logs-modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 16px;
+  z-index: 20;
+  overflow: hidden;
+}
+
+#giveaway-bot-panel .gb-logs-modal.show {
+  display: flex;
+  flex-direction: column;
+}
+
+#giveaway-bot-panel .gb-logs-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+#giveaway-bot-panel .gb-logs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#giveaway-bot-panel .gb-logs-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00ff88, #00ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#giveaway-bot-panel .gb-logs-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 28px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  line-height: 0.8;
+  padding: 0;
+}
+
+#giveaway-bot-panel .gb-logs-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+#giveaway-bot-panel .gb-logs-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+#giveaway-bot-panel .gb-logs-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+#giveaway-bot-panel .gb-logs-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#giveaway-bot-panel .gb-logs-body::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+#giveaway-bot-panel .gb-logs-section {
+  margin-bottom: 20px;
+}
+
+#giveaway-bot-panel .gb-logs-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #00ff88;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+#giveaway-bot-panel .gb-logs-section p {
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+#giveaway-bot-panel .gb-logs-section strong {
+  color: #00ccff;
+  font-weight: 600;
+}
+
+#giveaway-bot-panel .gb-logs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#giveaway-bot-panel .gb-logs-list li {
+  font-size: 11px;
+  padding: 6px 8px;
+  color: #ccc;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#giveaway-bot-panel .gb-logs-list li:last-child {
+  border-bottom: none;
+}
+
+#giveaway-bot-panel .gb-logs-list .num {
+  color: #999;
+  min-width: 30px;
+  flex-shrink: 0;
+}
+
+#giveaway-bot-panel .gb-logs-list .user {
+  color: #00ccff;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+#giveaway-bot-panel .gb-logs-list .time {
+  color: #888;
+  font-size: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+#giveaway-bot-panel .gb-logs-empty {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}

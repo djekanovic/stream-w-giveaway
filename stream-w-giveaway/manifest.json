@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "Stream W - Open Source Stream Giveaway",
+  "version": "1.3.0",
+  "description": "Fast lightweight giveaway script for Kick, Twitch, and YouTube streams",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+    "*://*.kick.com/*",
+    "*://*.twitch.tv/*",
+    "*://*.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "commands": {
+    "toggle-giveaway": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+G"
+      },
+      "description": "Toggle Giveaway Panel"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.kick.com/*",
+        "*://*.twitch.tv/*",
+        "*://*.youtube.com/*"
+      ],
+      "all_frames": true,
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["styles.css", "icon128.png", "logo.png"],
+      "matches": ["*://*.kick.com/*", "*://*.twitch.tv/*", "*://*.youtube.com/*"]
+    }
+  ]
+}
