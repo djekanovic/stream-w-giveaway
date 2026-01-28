@@ -30,7 +30,10 @@
     allMessagesLog: [], // Log all messages for accuracy verification
     language: 'en', // Current language
     duplicateAttempts: 0, // Count of duplicate message attempts
-    botsFiltered: 0 // Count of bots filtered out
+    botsFiltered: 0, // Count of bots filtered out
+    giveawayStartTime: null, // Timestamp when giveaway started
+    observerStartTime: null, // Timestamp when observer started
+    seenMessageIds: new Set() // YouTube message IDs we've seen (more reliable than attributes)
   };
 
   // ============================================
@@ -504,6 +507,8 @@
     state.allMessagesLog = [];
     state.duplicateAttempts = 0;
     state.botsFiltered = 0;
+    state.giveawayStartTime = Date.now(); // Track when giveaway started
+    state.seenMessageIds.clear(); // Clear YouTube message IDs
 
     // Update UI
     document.getElementById('gb-start').classList.add('hidden');
@@ -781,18 +786,42 @@
     // Mark all existing messages as "old" so we only capture NEW messages
     const markerId = `gb-seen-${Date.now()}`;
     const msgSelectors = selectors.message.split(', ');
-    for (const sel of msgSelectors) {
-      container.querySelectorAll(sel).forEach(el => {
-        el.setAttribute('data-gb-old', markerId);
-      });
+
+    // For YouTube: also store message IDs (more reliable than attributes)
+    if (platform === 'youtube') {
+      for (const sel of msgSelectors) {
+        container.querySelectorAll(sel).forEach(el => {
+          el.setAttribute('data-gb-old', markerId);
+          const msgId = el.id || el.getAttribute('id');
+          if (msgId) {
+            state.seenMessageIds.add(msgId);
+          }
+        });
+      }
+      console.log('[GiveawayBot] Marked ' + state.seenMessageIds.size + ' existing YouTube messages as old');
+    } else {
+      for (const sel of msgSelectors) {
+        container.querySelectorAll(sel).forEach(el => {
+          el.setAttribute('data-gb-old', markerId);
+        });
+      }
     }
+
+    // Track when observer starts - use grace period to avoid capturing old messages
+    state.observerStartTime = Date.now();
+    // 200ms grace period for all platforms to prevent capturing historical messages during re-renders
+    const GRACE_PERIOD_MS = 200;
 
     // Create observer - only process messages without the marker
     state.observer = new MutationObserver((mutations) => {
+      // Only process if page/iframe is visible
+      if (document.hidden) {
+        return;
+      }
+
       for (const mutation of mutations) {
         for (const node of mutation.addedNodes) {
           if (node.nodeType === Node.ELEMENT_NODE) {
-            // Process immediately, don't wait for requestAnimationFrame
             // Check if this element or its children match message selectors
             const messagesToProcess = [];
 
@@ -800,7 +829,15 @@
             for (const sel of msgSelectors) {
               if (node.matches && node.matches(sel)) {
                 if (!node.hasAttribute('data-gb-old')) {
-                  messagesToProcess.push(node);
+                  // YouTube: also check message ID
+                  if (platform === 'youtube') {
+                    const msgId = node.id || node.getAttribute('id');
+                    if (msgId && !state.seenMessageIds.has(msgId)) {
+                      messagesToProcess.push(node);
+                    }
+                  } else {
+                    messagesToProcess.push(node);
+                  }
                 }
                 break;
               }
@@ -811,14 +848,50 @@
               const childMessages = node.querySelectorAll ? node.querySelectorAll(sel) : [];
               childMessages.forEach(msg => {
                 if (!msg.hasAttribute('data-gb-old')) {
-                  messagesToProcess.push(msg);
+                  // YouTube: also check message ID
+                  if (platform === 'youtube') {
+                    const msgId = msg.id || msg.getAttribute('id');
+                    if (msgId && !state.seenMessageIds.has(msgId)) {
+                      messagesToProcess.push(msg);
+                    }
+                  } else {
+                    messagesToProcess.push(msg);
+                  }
                 }
               });
             }
 
-            // Process all new messages found
+            // GRACE PERIOD: Ignore ALL messages during first N seconds after start
+            // This prevents capturing historical messages from re-renders
+            const timeSinceStart = Date.now() - (state.observerStartTime || 0);
+            if (timeSinceStart < GRACE_PERIOD_MS) {
+              // Mark messages but don't process them
+              messagesToProcess.forEach(msg => {
+                msg.setAttribute('data-gb-old', markerId);
+                // YouTube: store message ID
+                if (platform === 'youtube') {
+                  const msgId = msg.id || msg.getAttribute('id');
+                  if (msgId) {
+                    state.seenMessageIds.add(msgId);
+                  }
+                }
+              });
+              if (messagesToProcess.length > 0) {
+                console.log('[GiveawayBot] Grace period active (' + timeSinceStart + 'ms/' + GRACE_PERIOD_MS + 'ms). Ignoring ' + messagesToProcess.length + ' messages.');
+              }
+              return; // Skip processing during grace period
+            }
+
+            // Process all new messages found (after grace period)
             messagesToProcess.forEach(msg => {
               msg.setAttribute('data-gb-old', markerId); // Mark as processed
+              // YouTube: store message ID
+              if (platform === 'youtube') {
+                const msgId = msg.id || msg.getAttribute('id');
+                if (msgId) {
+                  state.seenMessageIds.add(msgId);
+                }
+              }
               processElement(msg, selectors);
             });
           }
@@ -831,7 +904,14 @@
       subtree: true
     });
 
-    console.log('[GiveawayBot] Started observing');
+    console.log('[GiveawayBot] Started observing with ' + (GRACE_PERIOD_MS / 1000) + '-second grace period (platform: ' + platform + ')');
+
+    // After grace period, update status to show ready for messages
+    setTimeout(() => {
+      if (state.isRunning) {
+        console.log('[GiveawayBot] Grace period ended - now capturing messages');
+      }
+    }, GRACE_PERIOD_MS);
   }
 
   function stopObserving() {
@@ -1029,6 +1109,8 @@
       state.debugMode = message.debugMode;
       state.isRunning = true;
       state.processedMessages.clear();
+      state.seenMessageIds.clear(); // Clear YouTube message IDs
+      state.giveawayStartTime = Date.now(); // Track when giveaway started
       startObserving();
       sendResponse({ success: true });
     }
@@ -1072,13 +1154,16 @@
     window.giveawayBotDebug = {
       getParticipants: () => Array.from(state.participants.values()),
       getMessageLog: () => state.allMessagesLog,
+      getSeenMessageIds: () => Array.from(state.seenMessageIds),
       exportLog: () => {
         console.table(state.allMessagesLog);
         console.log('Total messages:', state.allMessagesLog.length);
         console.log('Unique participants:', state.participants.size);
+        console.log('Seen message IDs (YouTube):', state.seenMessageIds.size);
         return {
           messages: state.allMessagesLog,
-          participants: Array.from(state.participants.values())
+          participants: Array.from(state.participants.values()),
+          seenMessageIds: Array.from(state.seenMessageIds)
         };
       }
     };

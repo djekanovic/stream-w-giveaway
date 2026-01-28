@@ -23,23 +23,55 @@ updateUI();
 ### 2. **CAPTURE ONLY NEW MESSAGES**
 The extension must ONLY capture messages that arrive AFTER the START button is pressed. Historical/existing chat messages are ignored.
 
-**Implementation:** Uses `data-gb-old` attribute marking
+**Implementation:** Uses grace period + `data-gb-old` attribute marking + message ID tracking (YouTube)
 - When `startObserving()` is called, ALL existing messages get marked with `data-gb-old` attribute
-- MutationObserver only processes elements WITHOUT this attribute
+- **Grace period:** ALL messages detected during grace period are ignored and marked as old
+  - All platforms: 200ms (prevents capturing historical messages from re-renders while minimizing delay)
+- **YouTube-specific:** Message IDs are tracked in a Set to prevent re-rendered messages from being captured
+- **Visibility check:** Only processes messages when tab/iframe is visible
+- After grace period: MutationObserver processes elements WITHOUT the `data-gb-old` attribute
 - New messages are marked immediately after detection to prevent duplicates
 
 ```javascript
 // Mark existing messages as "old" when starting
 container.querySelectorAll(messageSelector).forEach(el => {
   el.setAttribute('data-gb-old', markerId);
+  // YouTube: also store message ID for extra protection
+  if (platform === 'youtube') {
+    const msgId = el.id;
+    if (msgId) state.seenMessageIds.add(msgId);
+  }
 });
 
-// Only process messages without the marker
+// Grace period check (200ms for all platforms)
+const GRACE_PERIOD_MS = 200;
+const timeSinceStart = Date.now() - state.observerStartTime;
+if (timeSinceStart < GRACE_PERIOD_MS) {
+  // Mark but don't process during grace period
+  messagesToProcess.forEach(msg => {
+    msg.setAttribute('data-gb-old', markerId);
+    if (platform === 'youtube' && msg.id) {
+      state.seenMessageIds.add(msg.id);
+    }
+  });
+  return;
+}
+
+// Only process messages without the marker (after grace period)
 if (!node.hasAttribute('data-gb-old')) {
+  // YouTube: double-check message ID hasn't been seen
+  if (platform === 'youtube') {
+    const msgId = node.id;
+    if (msgId && state.seenMessageIds.has(msgId)) return;
+  }
   messagesToProcess.push(node);
   node.setAttribute('data-gb-old', markerId); // Mark immediately
 }
 ```
+
+**Why Grace Period?** Streaming platforms (especially YouTube) sometimes re-render the chat container, creating new DOM elements for old messages. The grace period ensures these re-rendered historical messages are ignored.
+
+**Why YouTube Message IDs?** YouTube chat messages have unique IDs. By tracking these IDs, we can detect re-rendered old messages even if they appear as "new" DOM elements without the `data-gb-old` attribute. This provides double protection against the re-render bug.
 
 ### 3. **ONE USER = ONE ENTRY**
 Each user can only participate once, even if they send multiple messages.
@@ -315,17 +347,30 @@ If messages are missed:
 5. Confirm MutationObserver is connected
 
 If too many messages captured:
-1. Verify `data-gb-old` marking happens BEFORE processing
-2. Check that observer starts AFTER marking existing messages
-3. Ensure `state.isRunning` is checked in processElement
+1. Verify grace period is active (200ms delay after start)
+2. Check console for "[GiveawayBot] Grace period active" and "[GiveawayBot] Marked X existing YouTube messages" messages
+3. For YouTube: Check `state.seenMessageIds.size` in console to see how many message IDs are tracked
+4. Verify `data-gb-old` marking happens BEFORE processing
+5. Check that observer starts AFTER marking existing messages
+6. Ensure `state.isRunning` is checked in processElement
+7. Verify tab/iframe is visible (document.hidden should be false)
+8. If platforms re-render frequently, consider increasing grace period (currently 200ms for all platforms)
 
 ---
 
-**Version:** 1.3.0
+**Version:** 1.3.1
 **Last Updated:** 2026-01-28
-**Core Principle:** Capture every message from START to FINISH with zero delays.
+**Core Principle:** Capture every NEW message from START to FINISH (after 200ms grace period).
 
-## Recent Changes (v1.3.0)
+## Recent Changes (v1.3.1)
+
+- **Grace Period Fix:** Added 200ms grace period after START to prevent capturing historical messages during platform re-renders
+  - Minimal delay ensures fast capture while preventing re-render bug
+- **YouTube Message ID Tracking:** Track unique YouTube message IDs to prevent duplicate captures during re-renders
+- **Visibility Check:** Only process messages when tab/iframe is visible (prevents capturing messages from inactive tabs)
+- **Platform-Specific Handling:** Enhanced YouTube support with double protection against re-render bug
+
+## Changes (v1.3.0)
 
 - **Bot Blacklist:** Automatically filters out 20+ common streaming bots
 - **Empty Keyword Mode:** Leave keyword empty to capture all messages (replaces debug mode toggle)
