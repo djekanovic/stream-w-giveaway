@@ -8,7 +8,7 @@
 **Fast • Accurate • Fair • Multi-Platform**
 
 [![Version](https://img.shields.io/badge/version-1.3.0-brightgreen.svg)](https://github.com/yourusername/stream-w)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
 [![Chrome](https://img.shields.io/badge/Chrome-Extension-orange.svg)](https://chrome.google.com/webstore)
 
 Run fair and transparent giveaways on **Kick**, **Twitch**, and **YouTube** with 100% accuracy.
@@ -335,17 +335,16 @@ Other ways to support:
 **Created by:** [djekanovic](https://instagram.com/djekanovic)
 
 **Links:**
-- 🌐 [Website/Portfolio](https://djekanovic.com) *(if applicable)*
+- 🌐 [Website/Portfolio](https://cv.djekanovic.com/) *(if applicable)*
 - 📷 [Instagram](https://instagram.com/djekanovic)
-- 💬 [Discord](https://discord.gg/yourserver) *(if applicable)*
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0) - see the [LICENSE](LICENSE) file for details.
 
-**TL;DR:** You can use, modify, and distribute this extension freely. Just keep the license notice.
+**TL;DR:** This project is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
 ---
 
