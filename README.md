@@ -47,7 +47,7 @@ Stream W is designed for streamers who want to run **completely fair** giveaways
 
 <div align="center">
 
-[![Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png)](https://chromewebstore.google.com/detail/stream-w-open-source-stre/fdgnplakigdlnhpompdbdfopppaplhbn?authuser=0&hl=en)
+[![Available in the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue?style=for-the-badge&logo=googlechrome)](https://chromewebstore.google.com/detail/stream-w-open-source-stre/fdgnplakigdlnhpompdbdfopppaplhbn?authuser=0&hl=en)
 
 </div>
 
@@ -214,15 +214,6 @@ Stream W uses advanced browser technology to ensure 100% accuracy:
 - YouTube uses iframe—extension handles this automatically
 </details>
 
-<details>
-<summary><b>Extension not loading</b></summary>
-
-1. Check that Developer mode is enabled in `chrome://extensions/`
-2. Click the reload button on the extension card
-3. Refresh the stream page after reloading extension
-4. Check for error messages in the extensions page
-</details>
-
 ### 🐛 Advanced Debugging
 
 Open browser console (F12) and use these commands:
@@ -346,9 +337,7 @@ Other ways to support:
 
 ## 📄 License
 
-This project is licensed under the GNU General Public License v3.0 (GPL-3.0) - see the [LICENSE](LICENSE) file for details.
-
-**TL;DR:** This project is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+This project is licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE).
 
 ---
 
