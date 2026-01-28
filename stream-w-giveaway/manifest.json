@@ -2,7 +2,6 @@
   "manifest_version": 3,
   "name": "Stream W - Open Source Stream Giveaway",
   "version": "1.3.0",
-  "license": "GPL-3.0-or-later",
   "description": "Fast lightweight giveaway script for Kick, Twitch, and YouTube streams",
   "permissions": ["activeTab", "scripting"],
   "host_permissions": [

@@ -332,7 +332,7 @@ Other ways to support:
 
 ## 👤 About
 
-**Created by:** [djekanovic](https://instagram.com/djekanovic)
+**Created by:** djekanovic
 
 **Links:**
 - 🌐 [Website/Portfolio](https://cv.djekanovic.com/) *(if applicable)*
